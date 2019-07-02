@@ -54,7 +54,10 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
                 if (!isLoading) {
-                    if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == rowsArrayList.size() - 1) {
+                    int totalItem = linearLayoutManager.getItemCount();
+                    int lastItem = linearLayoutManager.findLastVisibleItemPosition();
+                    int threshHold = 10;
+                    if (linearLayoutManager != null && totalItem <= lastItem+threshHold) {
                         //bottom of list!
                         loadMore();
                         isLoading = true;
