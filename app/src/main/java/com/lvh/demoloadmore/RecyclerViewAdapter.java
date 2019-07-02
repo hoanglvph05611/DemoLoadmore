@@ -14,6 +14,7 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
+    private final int VIEW_TYPE_PULL = -1;
 
     public List<String> mItemList;
 
@@ -50,7 +51,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
+
         return mItemList.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+
     }
 
     private class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -84,6 +87,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private void showLoadingView(LoadingViewHolder viewHolder, int position) {
         //ProgressBar would be displayed
 
+    }
+    public void clear() {
+        mItemList.clear();
+        notifyDataSetChanged();
+    }
+    public void addAll(List<String> list) {
+        mItemList.addAll(list);
+        notifyDataSetChanged();
     }
 
 
