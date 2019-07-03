@@ -14,7 +14,7 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
-    private final int VIEW_TYPE_PULL = -1;
+  //  private final int VIEW_TYPE_PULL = -1;
 
     public List<String> mItemList;
 

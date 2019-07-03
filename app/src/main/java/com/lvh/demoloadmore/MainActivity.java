@@ -7,14 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.json.JSONArray;
+
+
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -31,20 +32,34 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setColorSchemeResources(R.color.swipe_1, R.color.swipe_2, R.color.swipe_3);
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                int i=0;
-//                while(i<10){
-//                    rowsArrayList.add("Item " + (-i));
-//                    i++;
-//                }
+                swipeRefresh.setRefreshing(true);
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefresh.setRefreshing(false);
 
-//                swipeRefresh.setRefreshing(false);
+                        recyclerViewAdapter.clear();
+                        // populateData();
+                        int i = 0;
+                        while (i < 25) {
+                            rowsArrayList.add("Item new " + i);
+                            i++;
+                        }
+                        initAdapter();
 
+                        //  Random random = new Random();
+
+
+                    }
+                }, 2000);
             }
         });
+
         populateData();
         initAdapter();
         initScrollListener();
@@ -63,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewAdapter = new RecyclerViewAdapter(rowsArrayList);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
+
     private void initScrollListener() {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -120,24 +136,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    public void fetchTimelineAsync(int page) {
-//        // Send the network request to fetch the updated data
-//        // `client` here is an instance of Android Async HTTP
-//        // getHomeTimeline is an example ednpoint.
-//        client.getHomeTimeline(1,new JsonHttpResponseHandler() {
-//            public void onSuccess(JSONArray json) {
-//                // Remember to CLEAR OUT old items before appending in the new ones
-//                recyclerViewAdapter.clear();
-//                // ...the data has come back, add new items to your adapter...
-//                recyclerViewAdapter.addAll(rowsArrayList);
-//                // Now we call setRefreshing(false) to signal refresh has finished
-//                swipeRefresh.setRefreshing(false);
-//            }
-//
-//            public void onFailure(Throwable e) {
-//                Log.d("DEBUG", "Fetch timeline error: " + e.toString());
-//            }
-//        });
-//    }
 }
 
