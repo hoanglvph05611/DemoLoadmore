@@ -12,8 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import com.loopj.android.http.AsyncHttpClient;
 
 
-
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -44,17 +42,17 @@ public class MainActivity extends AppCompatActivity {
                         swipeRefresh.setRefreshing(false);
 
                         recyclerViewAdapter.clear();
-                        // populateData();
-                        int i = 0;
-                        while (i < 25) {
+                        int max = 100;
+                        int min = 1;
+
+                        Random random = new Random();
+                        int i = random.nextInt(max-min+1)+min;
+                        while (i < 100) {
                             rowsArrayList.add("Item new " + i);
                             i++;
                         }
                         initAdapter();
-
-                        //  Random random = new Random();
-
-
+                        
                     }
                 }, 2000);
             }
